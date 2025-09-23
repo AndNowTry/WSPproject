@@ -1,5 +1,5 @@
 from django.db import models
-
+'''
 # Create your models here.
 class Product(models.Model):
 
@@ -13,5 +13,5 @@ class Product(models.Model):
     currency = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=False)
 
 
-
+'''
 
