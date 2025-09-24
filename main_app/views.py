@@ -11,7 +11,12 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['latest_articles'] = 'maslo' #тестил
+        context['Catalog'] =  # тестил
+
+
+
         return context
 
 

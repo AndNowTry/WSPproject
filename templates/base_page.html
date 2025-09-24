@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <link rel="stylesheet" href="{% static 'css/base_styles.css' %}">
+    <script src="{% static 'js/base_scripts.js' %}"></script>
+
     {% block extra_content %}
+
     {% endblock %}
 </head>
     <body>
 
-
         {% block main_content %}
         {% endblock %}
+
     </body>
 </html>
