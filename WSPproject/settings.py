@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'main_app',
     'user_app'
 ]
@@ -110,8 +111,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'user_app.backends.UserLoginBackend',
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.yandex.YandexOAuth2"
 ]
 
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -140,21 +146,18 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
 EMAIL_HOST = env("EMAIL_HOST")
-
 EMAIL_PORT = env("EMAIL_PORT")
-
 EMAIL_USE_TLS = env("EMAIL_USE_TLS")
-
 EMAIL_USE_SSL = env("EMAIL_USE_SSL")
-
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-
 DEFAULT_FROM_EMAIL = env("EMAIL_HOST_USER")
-
 SERVER_EMAIL = env("EMAIL_HOST_USER")
-
 EMAIL_ADMIN = env("EMAIL_HOST_USER")
+
+SOCIAL_AUTH_YANDEX_OAUTH2_KEY = env("SOCIAL_AUTH_YANDEX_OAUTH2_KEY")
+SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = env("SOCIAL_AUTH_YANDEX_OAUTH2_SECRET")
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET ")
