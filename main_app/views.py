@@ -13,7 +13,7 @@ class HomePageView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['latest_articles'] = 'maslo' #тестил
-        context['Catalog'] =  # тестил
+        context['Catalog'] = '' # тестил
 
 
 
