@@ -1,7 +1,7 @@
 body{
     height: 2000px;
     font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif !important;
-    background: #f7f7f7;
+    background: var(--bg);
 }
 a{
     text-decoration: none;
@@ -12,17 +12,28 @@ a{
     margin: 0;
     outline: 1px solid rgba(0, 128, 0, 0.0) !important;
 }
-
+:root{
+    --black-gray: #353535;
+    --black-brown: #8C6D51;
+    --white-gray: #E5E5E5;
+    --white: #fff;
+    --red-brown: #BC430D;
+    --blue-gray: #CED3D4;
+    --bg: #F9F9F9;
+}
 header {
     position: sticky;
     width: 100%;
     top: 0;
+    color: white;
 }
 header .menu-top{
-    background: #fff;
+    background: var(--white-gray);
     box-shadow: 0px 0 30px #dfdede;
     min-height: 100px;
     display: flex;
+    z-index: 9999;
+    position: relative;
 }
 header .menu-top .container-menu-top{
     display: flex;
@@ -31,42 +42,22 @@ header .menu-top .container-menu-top{
     padding: 10px 20px;
     max-width: 1380px;
     margin: 0 auto;
-    gap: 15px;
     width: 100%;
 }
 header .menu-top .container-menu-top .logo {
     width: 240px;
-    background: linear-gradient(0deg, #fc8507, #ffa218);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 10px;
     max-height: 55px;
     height: 55px;
     border-radius: 10px;
 }
 header .menu-top .container-menu-top .logo a{
-    color: #fff;
+    color: var(--black-gray);
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 45px;
     margin-left: 10px;
-    cursor: pointer;
-}
-header .menu-top .container-menu-top .logo .open-window-catalog{
-    border: 0;
-    font-size: 15px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 700;
-    background: #ffffff1f;
-    padding: 10px 16px 10px 20px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
 }
 header .menu-top .container-menu-top .search{
@@ -74,6 +65,7 @@ header .menu-top .container-menu-top .search{
     height: 55px;
     display: flex;
     align-items: center;
+    position: relative;
 }
 header .menu-top .container-menu-top .search form{
     display: flex;
@@ -85,12 +77,12 @@ header .menu-top .container-menu-top .search form input{
     height: 100%;
     width: 100%;
     border: 0;
-    background: #f7f7f7;
+    background: var(--blue-gray);
     padding: 0 160px 0 20px !important;
     border-radius: 10px;
     font-size: 16px;
     outline: none;
-    color: #333;
+    color: var(--black-gray);
 }
 
 
@@ -105,7 +97,17 @@ header .menu-top .container-menu-top .search form button{
     border-radius: 12px;
 }
 header .menu-top .container-menu-top .search form button:hover{
-    background: #FFF;
+    background: var(--white);
+}
+header .menu-top .container-menu-top .search .search-info{
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    background: var(--blue-gray);
+    top: 100%;
+    border-top: 1px solid #c2c2c2ad;
+    border-radius: 0 0 10px 10px;
+    display: none;
 }
 
 
@@ -116,6 +118,7 @@ header .menu-top .container-menu-top .search form button:hover{
 
 header .menu-top .container-menu-top .user-actions{
     display: flex;
+    margin-left: 10px;
 }
 header .menu-top .container-menu-top .user-actions .action-btn{
     display: flex;
@@ -126,10 +129,13 @@ header .menu-top .container-menu-top .user-actions .action-btn{
     width: 90px;
     transition: all 250ms ease;
 }
+header .menu-top .container-menu-top .user-actions .action-btn span svg path{
+    fill: var(--black-gray) !important;
+}
 
 header .menu-top .container-menu-top .user-actions .action-btn:hover{
     border-radius: 12px;
-    background: #f7f7f7;
+    background: var(--blue-gray);
 }
 header .menu-top .container-menu-top .user-actions .action-btn .action-circle{
     width: 35px;
@@ -142,39 +148,64 @@ header .menu-top .container-menu-top .user-actions .action-btn .action-circle{
 header .menu-top .container-menu-top .user-actions .action-btn .action-text{
     font-size: 12px;
     line-height: 18px;
-    color: #4e4e4e;
+    color: var(--black-gray);
     font-weight: bold;
 }
 
 
 
 
-
+header .menu-bottom-container{
+    max-width: 1380px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+    will-change: transform;
+    transition: none; /* по умолчанию без анимации */
+}
+header .menu-bottom-container.ready{
+  transition: transform 0.35s ease; /* включаем анимацию после инициализации */
+}
+header .menu-bottom-container .open-window-catalog{
+    border: 0;
+    width: 240px;
+    height: 56px;
+    font-size: 19px;
+    border-radius: 0 0 10px 10px;
+    color: var(--white);
+    font-weight: 700;
+    background: var(--red-brown);
+    padding: 10px 16px 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
 
 header .menu-bottom{
-    display: none;
+    display: block;
     width: 100%;
-    background: #fff;
+    background: var(--white-gray);
     border-top: 1px solid #ededed;
-    position: absolute;
-    padding: 20px 0;
+    padding: 0;
+    border-radius: 0 0 10px 0;
 }
 header .menu-bottom.active{
     display: block;
 }
 header .menu-bottom .catalog{
-    max-width: 1380px;
-    margin: 0 auto;
     padding: 0;
 }
 header .menu-bottom .catalog .dropdown-content{
     display: flex;
 }
 header .menu-bottom .catalog .dropdown-content .categories{
-    width: 240px;
+    width: 219px;
     height: auto;
-    padding: 0 10px;
-    background: #fff;
+    padding: 10px 10px 10px 10px;
+    background: var(--white-gray);
+    border-right: 1px solid #bc430d57;
 }
 header .menu-bottom .catalog .dropdown-content .categories .category-btn{
     display: flex;
@@ -190,15 +221,19 @@ header .menu-bottom .catalog .dropdown-content .categories .category-btn{
     align-items: center;
     margin: 0 -1px;
     font-size: 16px;
-    background-color: #f7f7f7;
+    background-color: var(--blue-gray);
     border-radius: 12px;
     padding: 8px 0 8px 12px;
     border-left: 2px solid rgba(0, 0, 0, 0);
     cursor: pointer;
 }
-.category-text-active{
-    color: #fc8507 !important;
+header .menu-bottom .catalog .dropdown-content .categories .category-btn-a{
+    color: var(--black-brown);
+}
+header .menu-bottom .catalog .dropdown-content .categories .category-text-active{
+    color: var(--black-gray) !important;
 }
 header .menu-bottom .catalog .dropdown-content .subcategories{
     flex: 1;
+    padding: 10px;
 }
