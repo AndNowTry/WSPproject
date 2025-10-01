@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
@@ -13,7 +13,7 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class EmailLoginForm(forms.Form):
+class EmailLoginForm(AuthenticationForm):
     email = forms.EmailField(required=True)
     password = forms.CharField(required=True)
 
@@ -27,6 +27,3 @@ class EmailLoginForm(forms.Form):
 
         self.user = user
         return self.cleaned_data
-
-    def get_user(self):
-        return self.user
