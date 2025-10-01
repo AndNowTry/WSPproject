@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
+    #'social_django',
     'main_app',
     'user_app'
 ]
@@ -111,8 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'user_app.backends.UserLoginBackend',
-    "social_core.backends.google.GoogleOAuth2",
-    "social_core.backends.yandex.YandexOAuth2"
+    #"social_core.backends.google.GoogleOAuth2",
+    #"social_core.backends.yandex.YandexOAuth2"
 ]
 
 LOGIN_URL = "login"
@@ -144,7 +144,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+'''
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = env("EMAIL_PORT")
@@ -156,7 +156,7 @@ DEFAULT_FROM_EMAIL = env("EMAIL_HOST_USER")
 SERVER_EMAIL = env("EMAIL_HOST_USER")
 EMAIL_ADMIN = env("EMAIL_HOST_USER")
 
-'''
+
 Включать при наличии api ключа!
 
 SOCIAL_AUTH_YANDEX_OAUTH2_KEY = env("SOCIAL_AUTH_YANDEX_OAUTH2_KEY")
