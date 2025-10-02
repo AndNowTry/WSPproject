@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     {% load static %}
+    {% load widget_tweaks %}
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
 
     <link rel="stylesheet" href="{% static 'user_app/css/login_page_styles.css' %}">
     <script src="{% static 'user_app/js/login_page_scripts.js' %}"></script>
@@ -16,6 +17,41 @@
         <main>
             <h1 style="text-align: center;">Войти</h1>
 
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                    <div class="input_box">
+                        {{ field }}
+                        <label class="label_info">
+                            {{ field.label }}
+                        </label>
+                        <label class="label_error">
+                            {{ field.errors }}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <button class="button_box" type="submit">Войти</button>
+            </form>
+
+            <hr style="width: 78%; color: black;">
+
+            <div class="social_container">
+                <a href="#">
+                    <img style="width: 40px; height: 40px" src="{% static 'user_app/images/google.svg' %}">
+                </a>
+
+                <a href="#">
+                    <img style="width: 40px; height: 40px" src="{% static 'user_app/images/yandex.svg' %}">
+                </a>
+            </div>
+
+            <hr style="width: 78%; color: black;">
+
+            <a style="margin: 0px 0px 40px 0px" href="#">Зарегистрироваться</a>
 
         </main>
     </body>

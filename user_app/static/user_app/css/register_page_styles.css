@@ -103,7 +103,7 @@ input::selection + .label_info
 
 .button_box
 {
-    width: 100px;
+    width: 140px;
     height: 36px;
     border-radius: 8px;
     border-style: none;
@@ -123,8 +123,6 @@ input::selection + .label_info
     align-items: center;
     justify-content: center;
     gap: 30px;
+    margin: 0px 0px 30px 0px;
 }
-
-
-
 

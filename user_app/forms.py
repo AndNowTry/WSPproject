@@ -14,16 +14,22 @@ class UserRegisterForm(UserCreationForm):
 
 
 class EmailLoginForm(AuthenticationForm):
-    email = forms.EmailField(required=True)
-    password = forms.CharField(required=True)
+    # Называем поле всё ещё "username" (чтобы не ломать логику AuthenticationForm),
+    username = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={"autofocus": True}))
+    password = forms.CharField(label="Пароль", strip=False, widget=forms.PasswordInput)
 
     def clean(self):
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
-        user = authenticate(email=email, password=password)  # вызов кастомного backend
+        email = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
 
-        if user is None:
-            raise forms.ValidationError("Неверный email или пароль")
+        if email and password:
+            user = authenticate(self.request, email=email, password=password)
+            if user is None:
+                raise forms.ValidationError("Неверный email или пароль")
+            self.confirm_login_allowed(user)
+            self.user_cache = user
 
-        self.user = user
         return self.cleaned_data
+
+    def get_user(self):
+        return getattr(self, "user_cache", None)

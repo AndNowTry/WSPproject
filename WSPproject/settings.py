@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     #'social_django',
     'main_app',
     'user_app'
@@ -110,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
+    #'django.contrib.auth.backends.ModelBackend'
     'user_app.backends.UserLoginBackend',
     #"social_core.backends.google.GoogleOAuth2",
     #"social_core.backends.yandex.YandexOAuth2"
