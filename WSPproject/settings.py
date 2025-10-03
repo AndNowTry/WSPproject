@@ -111,14 +111,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    #'django.contrib.auth.backends.ModelBackend'
-    'user_app.backends.UserLoginBackend',
+    'django.contrib.auth.backends.ModelBackend', # оставил, так как для админки нужна
+    'user_app.backends.UserLoginBackend', # клиент-ориентированная версия
     #"social_core.backends.google.GoogleOAuth2",
     #"social_core.backends.yandex.YandexOAuth2"
 ]
 
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 # Internationalization

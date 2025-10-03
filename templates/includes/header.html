@@ -41,6 +41,11 @@
                         </span>
                         <span class="action-text">Войти</span>
                     </a> <!-- profile-btn -->
+
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Выйти</button>
+                    </form>
                 </div>
             </div>
         </div>
