@@ -9,6 +9,7 @@
     <script src="{% static 'js/base_scripts.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <script src="{% static 'js/header.js' %}" defer></script>
     <script src="{% static 'js/header-search.js' %}" defer></script>
 
@@ -22,6 +23,6 @@
         {% block main_content %}
         {% endblock %}
 
-
+        {% include "includes/footer.html" %}
     </body>
 </html>

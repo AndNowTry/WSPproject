@@ -8,14 +8,15 @@
 
     <link rel="stylesheet" href="{% static 'user_app/css/login_page_styles.css' %}">
     <script src="{% static 'user_app/js/login_page_scripts.js' %}"></script>
+    <script src="{% static 'user_app/js/label_info.js' %}" defer></script>
 </head>
     <body>
         <header>
-            <a style="text-decoration: none; color: red; margin-left: 30px;" href="{% url 'home' %}">WSP</a>
+            <a class="logo-button" href="{% url 'home' %}">WSP</a>
         </header>
 
-        <main>
-            <h1 style="text-align: center;">Войти</h1>
+        <main class="register-container">
+            <h1 class="title-page">Войти</h1>
 
             <form method="post">
                 {% csrf_token %}
@@ -24,10 +25,12 @@
 
                 {% for field in form %}
                     <div class="input_box">
-                        {{ field }}
-                        <label class="label_info">
-                            {{ field.label }}
-                        </label>
+                        <div class="input-container">
+                            {{ field }}
+                            <label class="label_info">
+                                {{ field.label }}
+                            </label>
+                        </div>
                         <label class="label_error">
                             {{ field.errors }}
                         </label>
@@ -35,6 +38,7 @@
                 {% endfor %}
 
                 <button class="button_box" type="submit">Войти</button>
+                <a class="button-login" href="{% url 'register' %}">Зарегистрироваться</a>
             </form>
 
             <hr style="width: 78%; color: black;">
@@ -48,11 +52,6 @@
                     <img style="width: 40px; height: 40px" src="{% static 'user_app/images/yandex.svg' %}">
                 </a>
             </div>
-
-            <hr style="width: 78%; color: black;">
-
-            <a style="margin: 0px 0px 40px 0px" href="#">Зарегистрироваться</a>
-
         </main>
     </body>
 </html>
