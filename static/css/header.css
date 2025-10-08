@@ -1,5 +1,4 @@
 body{
-    height: 2000px;
     font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif !important;
     background: var(--bg);
 }
@@ -13,7 +12,8 @@ a{
     outline: 1px solid rgba(0, 128, 0, 0.0) !important;
 }
 :root{
-    --black-gray: #353535;
+    --black-gray: lab(22.16% 0 0);
+    --gray: #999;
     --black-brown: #8C6D51;
     --white-gray: #E5E5E5;
     --white: #fff;

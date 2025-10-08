@@ -8,14 +8,15 @@
 
     <link rel="stylesheet" href="{% static 'user_app/css/register_page_styles.css' %}">
     <script src="{% static 'user_app/js/register_page_scripts.js' %}"></script>
+    <script src="{% static 'user_app/js/label_info.js' %}" defer></script>
 </head>
     <body>
         <header>
-            <a style="text-decoration: none; color: red; margin-left: 30px;" href="{% url 'home' %}">WSP</a>
+            <a class="logo-button" href="{% url 'home' %}">WSP</a>
         </header>
 
-        <main>
-            <h1 style="text-align: center;">Зарегистрироваться</h1>
+        <main class="register-container">
+            <h1 class="title-page">Регистрация</h1>
 
             <form method="post">
                 {% csrf_token %}
@@ -24,10 +25,12 @@
 
                 {% for field in form %}
                     <div class="input_box">
-                        {{ field }}
-                        <label class="label_info">
-                            {{ field.label }}
-                        </label>
+                        <div class="input-container">
+                            {{ field }}
+                            <label class="label_info">
+                                {{ field.label }}
+                            </label>
+                        </div>
                         <label class="label_error">
                             {{ field.errors }}
                         </label>
@@ -35,17 +38,20 @@
                 {% endfor %}
 
                 <button class="button_box" type="submit">Создать аккаунт</button>
+
+                <span class="button-login">Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></span>
+
             </form>
 
             <hr style="width: 78%; color: black;">
 
             <div class="social_container">
                 <a href="#">
-                    <img style="width: 40px; height: 40px" src="{% static 'user_app/images/google.svg' %}">
+                    <img src="{% static 'user_app/images/google.svg' %}">
                 </a>
 
                 <a href="#">
-                    <img style="width: 40px; height: 40px" src="{% static 'user_app/images/yandex.svg' %}">
+                    <img src="{% static 'user_app/images/yandex.svg' %}">
                 </a>
             </div>
         </main>
