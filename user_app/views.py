@@ -6,16 +6,22 @@ from django.contrib.auth.models import User
 from .forms import UserRegisterForm, EmailLoginForm
 
 
-# Регистрация
+
 class UserRegisterView(CreateView):
+    """
+        Регистрация
+    """
     model = User
     form_class = UserRegisterForm
     template_name = 'user_app/register_page.html'
     success_url = reverse_lazy('home')
 
 
-# Вход
+
 class UserLoginView(LoginView):
+    """
+        Вход
+    """
     template_name = 'user_app/login_page.html'
     authentication_form = EmailLoginForm
     redirect_authenticated_user = True

@@ -8,9 +8,12 @@ class UserRegisterForm(UserCreationForm):
     # имя и два пароля работают на автомате
     email = forms.EmailField(required=True)
 
+    # Дописать проверку на одинаковых пользоватей
+
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
 
 
 class EmailLoginForm(AuthenticationForm):
@@ -22,6 +25,7 @@ class EmailLoginForm(AuthenticationForm):
         email = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
 
+        #Дописать проверку на одинаковых пользоватей
         if email and password:
             user = authenticate(self.request, email=email, password=password)
             if user is None:
