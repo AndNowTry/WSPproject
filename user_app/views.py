@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView
@@ -55,3 +56,10 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
 # Восстановление по почте изменение успех
 class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'user_app/password_reset_complete_page.html'
+
+
+class ProfileView(TemplateView):
+    """
+        Профиль
+    """
+    template_name = 'user_app/profile_page.html'

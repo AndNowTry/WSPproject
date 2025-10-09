@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 from mptt.models import MPTTModel, TreeForeignKey
 from django.core.exceptions import ValidationError
 
@@ -20,6 +21,13 @@ class MainCategory(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.name
+
+    '''
+    def get_get_absolute_url(self):
+        return redirect()
+    '''
 
 
 class SecondaryCategory(models.Model):
@@ -38,6 +46,9 @@ class SecondaryCategory(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.name
+
 
 
 class TripleCategory(models.Model):
@@ -55,6 +66,9 @@ class TripleCategory(models.Model):
                 name='unique_triple_category'
             )
         ]
+
+    def __str__(self):
+        return self.name
 
 #=======================================================================================================================
 

@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from difflib import SequenceMatcher
 
 
 class UserRegisterForm(UserCreationForm):
@@ -13,6 +14,16 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if not email:
+            return email
+
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("Пользователь с таким email уже существует.")
+        return email
+
 
 
 
