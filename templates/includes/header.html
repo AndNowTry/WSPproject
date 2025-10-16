@@ -60,18 +60,18 @@
             <div class="catalog">
                 <div class="dropdown-content">
                     <div class="categories">
-                        {% for category in main_categories %}
-                            <div class="category-btn active_btn" id="{{ category.id }}">
-                                <a href="#" class="category-text-active" >{{ category.name }}</a>
+                        {% for main in main_categories %}
+                            <div class="category-btn" id="main-{{ main.id }}">
+                                <a href="#">{{ main.name }}</a>
                             </div>
                         {% endfor %}
                     </div>
 
                     <div class="subcategories">
-                        {% for category in main_categories %}
-                            <div class="subcategory" id="{{ category.id }}">
-                                {% for sub_category in main_categories %}
-                                    <h1>{{ sub_category.name }}</h1>
+                        {% for main in main_categories %}
+                            <div class="subcategory" data-parent="main-{{ main.id }}" style="display:none;">
+                                {% for secondary in main.secondary_category.all %}
+                                    <div class="sub-item">{{ secondary.name }}</div>
                                 {% endfor %}
                             </div>
                         {% endfor %}

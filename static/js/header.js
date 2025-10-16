@@ -1,109 +1,78 @@
 const menuBtn = document.getElementById("menu-catalog-btn");
-const menu = document.querySelector(".menu-bottom-container");
-
+const menuBottom = document.querySelector(".menu-bottom");
+const menuContainer = document.querySelector(".menu-bottom-container");
 let firstOpen = true;
-
-// Скрыть все подкатегории при загрузке
-const subcategories = document.querySelectorAll(".subcategory");
-subcategories.forEach(sub => {
-  sub.style.display = "none";
-});
-
-// Функция для установки translateY с учётом высоты контейнера, кнопки и 65px
-function setTranslate(initial = false) {
-  const buttonHeight = menuBtn.offsetHeight;
-  const containerHeight = menu.offsetHeight;
-  const translateY = -(containerHeight - buttonHeight);
-  menu.style.transform = `translateY(${translateY}px)`;
-
-  if (initial) {
-    requestAnimationFrame(() => {
-      menu.classList.add("ready");
-    });
-  }
-}
-
-// Устанавливаем позицию сразу при загрузке (без анимации)
-window.addEventListener("load", () => setTranslate(true));
-window.addEventListener("resize", () => setTranslate(false));
+let isVisible = false;
 
 menuBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-
-  if (menu.classList.contains("active")) {
-    setTranslate();
-    menu.classList.remove("active");
-  } else {
-    menu.style.transform = "translateY(0)";
-    menu.classList.add("active");
-
-    // При первом открытии активируем первую категорию
-    if (firstOpen) {
-      const firstCategory = document.querySelector(".category-btn");
-      if (firstCategory) {
-        activateCategory(firstCategory);
-      }
-      firstOpen = false;
-    }
-  }
-});
-
-// Закрытие при клике вне меню
-document.addEventListener("click", (e) => {
-  if (!menu.contains(e.target) && e.target !== menuBtn) {
-    setTranslate();
-    menu.classList.remove("active");
-  }
-});
-
-// Логика категорий и подкатегорий
-const categoryBtns = document.querySelectorAll(".category-btn");
-let hoverTimer;
-
-function activateCategory(btn) {
-  // Сброс у всех категорий
-  categoryBtns.forEach(b => {
-    b.classList.remove("active_btn");
-    const link = b.querySelector("a");
-    if (link) {
-      link.classList.remove("category-text-active");
-      link.classList.add("category-btn-a");
-    }
-  });
-
-  // Установка активной категории
-  btn.classList.add("active_btn");
-  const link = btn.querySelector("a");
-  if (link) {
-    link.classList.add("category-text-active");
-    link.classList.remove("category-btn-a");
-  }
-
-  // Показ только нужной подкатегории
-  const targetId = btn.id;
-  subcategories.forEach(sub => {
-    if (sub.getAttribute("name") === targetId) {
-      sub.style.display = "block";
+    e.stopPropagation();
+    if (!isVisible) {
+        openMenu();
     } else {
-      sub.style.display = "none";
+        closeMenu();
     }
-  });
+});
 
-  // Пересчитать смещение на случай изменения высоты подкатегорий
-  if (!menu.classList.contains("active")) setTranslate();
+function openMenu() {
+    menuBottom.style.display = "block";
+    menuBottom.style.maxHeight = "0px";
+    requestAnimationFrame(() => {
+        menuBottom.style.maxHeight = menuBottom.scrollHeight + "px";
+    });
+    isVisible = true;
+
+    if (firstOpen) {
+        const firstCategory = document.querySelector(".category-btn");
+        if (firstCategory) activateCategory(firstCategory);
+        firstOpen = false;
+    }
 }
 
+function closeMenu() {
+    menuBottom.style.maxHeight = "0";
+    menuBottom.addEventListener("transitionend", function handler() {
+        menuBottom.style.display = "none";
+        menuBottom.removeEventListener("transitionend", handler);
+    });
+    isVisible = false;
+}
+
+const categoryBtns = document.querySelectorAll(".category-btn");
+const subcategories = document.querySelectorAll(".subcategory");
+
+function activateCategory(btn) {
+    categoryBtns.forEach(b => b.classList.remove("active_btn"));
+    btn.classList.add("active_btn");
+
+    const targetId = btn.id;
+    subcategories.forEach(sub => {
+        sub.style.display = sub.dataset.parent === targetId ? "block" : "none";
+    });
+}
+
+// Добавляем задержку для наведения
 categoryBtns.forEach(btn => {
-  btn.addEventListener("mouseenter", () => {
-    hoverTimer = setTimeout(() => activateCategory(btn), 250);
-  });
+    let hoverTimer;
 
-  btn.addEventListener("mouseleave", () => {
-    clearTimeout(hoverTimer);
-  });
+    btn.addEventListener("mouseenter", () => {
+        hoverTimer = setTimeout(() => {
+            activateCategory(btn);
+        }, 250); // задержка 300 мс
+    });
 
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    activateCategory(btn);
-  });
+    btn.addEventListener("mouseleave", () => {
+        clearTimeout(hoverTimer); // если курсор ушел раньше, таймер отменяется
+    });
+
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        activateCategory(btn);
+    });
+});
+
+// Закрытие при клике вне контейнера
+document.addEventListener("click", (e) => {
+    if (isVisible && !menuContainer.contains(e.target) && e.target !== menuBtn) {
+        closeMenu();
+    }
 });

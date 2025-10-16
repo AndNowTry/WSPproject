@@ -187,9 +187,11 @@ header .menu-bottom{
     display: block;
     width: 100%;
     background: var(--white-gray);
-    border-top: 1px solid #ededed;
     padding: 0;
     border-radius: 0 0 10px 0;
+    max-height: 0;
+    transition: all 0.4s ease;
+    overflow: hidden;
 }
 header .menu-bottom.active{
     display: block;
@@ -236,4 +238,18 @@ header .menu-bottom .catalog .dropdown-content .categories .category-text-active
 header .menu-bottom .catalog .dropdown-content .subcategories{
     flex: 1;
     padding: 10px;
+}
+header .menu-bottom .catalog .dropdown-content .subcategories .sub-item{
+    color: black;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
+    font-size: 16px;
+    padding: 8px 0 8px 12px;
+    border-left: 2px solid rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+header .menu-bottom .catalog .dropdown-content .subcategories .sub-item:hover{
+    background-color: var(--blue-gray);
 }
