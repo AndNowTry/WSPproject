@@ -1,12 +1,43 @@
 {% extends "base_page.html" %}
+{% load static %}
 
 {% block extra_content %}
+<link rel="stylesheet" href="{% static 'user_app/css/profile_page_styles.css' %}">
 {% endblock %}
 
 
 {% block main_content %}
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Выйти</button>
-</form>
+<div class="profile_main">
+    <div class="profile_second_main">
+        <!--<form class="profile_main_form" method="post" id="profile-form">
+            {% csrf_token %}
+
+            {% if user.user_profiles.avatar %}
+                <img src="{{ user.user_profiles.avatar.url }}" alt="avatar" width="120" height="120">
+            {% else %}
+                Фото с вопросительным знаком
+            {% endif %}
+
+            {{ Profile_form.avatar }}
+
+            {{ User_form.username.label }}
+            {{ User_form.username }}
+
+            {{ Profile_form.bonuses.label }}
+            {{ user.user_profiles.bonuses }}
+
+            <br>
+
+            {{ Profile_form.about_user.label }}
+            {{ Profile_form.about_user }}
+
+            <button type="submit">Сохранить</button>
+        </form>-->
+
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

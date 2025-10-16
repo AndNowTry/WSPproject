@@ -1,10 +1,11 @@
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.auth.models import User
-from .forms import UserRegisterForm, EmailLoginForm
+from .forms import UserRegisterForm, EmailLoginForm, UserUpdateForm, ProfileUpdateForm
 
 
 
@@ -31,8 +32,10 @@ class UserLoginView(LoginView):
         return reverse_lazy('home')
 
 
+
 # Выход
 # Вписан в путь
+
 
 
 # Восстановление по почте инициализация
@@ -58,8 +61,30 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'user_app/password_reset_complete_page.html'
 
 
-class ProfileView(TemplateView):
+class ProfileView(FormView):
     """
         Профиль
     """
     template_name = 'user_app/profile_page.html'
+    success_url = reverse_lazy('profile')
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {
+            'User_form': UserUpdateForm(),
+            'Profile_form': ProfileUpdateForm(),
+        })
+
+    def post(self, request, *args, **kwargs):
+        user_form = UserUpdateForm(request.POST)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect(self.success_url)
+
+        return render(request, self.template_name, {
+            'User_form': user_form,
+            'Profile_form': profile_form,
+        })
+

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from difflib import SequenceMatcher
+from user_app.models import Profiles
 
 
 class UserRegisterForm(UserCreationForm):
@@ -48,3 +48,18 @@ class EmailLoginForm(AuthenticationForm):
 
     def get_user(self):
         return getattr(self, "user_cache", None)
+
+
+"""
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username']
+
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profiles
+        fields = ['avatar', 'about_user']
+"""
