@@ -1,6 +1,5 @@
 from django.urls import path, re_path, include
-from .views import UserRegisterView, UserLoginView, UserPasswordResetView, UserPasswordResetDoneView, \
-    UserPasswordResetConfirmView, UserPasswordResetCompleteView, ProfileView
+from .views import UserRegisterView, UserLoginView, ProfileView
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [

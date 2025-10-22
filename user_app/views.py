@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.auth.models import User
-from .forms import UserRegisterForm, EmailLoginForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, EmailLoginForm
 
 
 
