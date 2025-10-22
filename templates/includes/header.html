@@ -72,6 +72,9 @@
                             <div class="subcategory" data-parent="main-{{ main.id }}" style="display:none;">
                                 {% for secondary in main.secondary_category.all %}
                                     <div class="sub-item">{{ secondary.name }}</div>
+                                    {% for triple in secondary.triple_category.all %}
+                                        <div class="sub-item" style="font-size: 14px; margin: 10px 0px 10px 20px;">{{ triple.name }}</div>
+                                    {% endfor %}
                                 {% endfor %}
                             </div>
                         {% endfor %}

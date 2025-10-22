@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.auth.models import User
-from .forms import UserRegisterForm, EmailLoginForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, EmailLoginForm
 
 
 
@@ -62,29 +62,6 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
 
 
 class ProfileView(FormView):
-    """
-        Профиль
-    """
     template_name = 'user_app/profile_page.html'
     success_url = reverse_lazy('profile')
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {
-            'User_form': UserUpdateForm(),
-            'Profile_form': ProfileUpdateForm(),
-        })
-
-    def post(self, request, *args, **kwargs):
-        user_form = UserUpdateForm(request.POST)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return redirect(self.success_url)
-
-        return render(request, self.template_name, {
-            'User_form': user_form,
-            'Profile_form': profile_form,
-        })
 

@@ -87,6 +87,8 @@ class Brands(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.name
 
 
 class CategoryBrands(models.Model):
@@ -163,6 +165,8 @@ class Products(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.name
 
 
 class ProductCharacteristics(models.Model):
