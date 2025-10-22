@@ -1,0 +1,161 @@
+.main{
+    max-width: 1380px;
+    margin: auto;
+}
+.slider{
+    width: 100%;
+    position: relative;
+    height: 400px;
+    background: var(--white-gray);
+    margin-top: 50px;
+    border-radius: 14px;
+}
+.slider .button-slider-right,
+.slider .button-slider-left{
+    position: absolute;
+    width: 60px;
+    height: 100%;
+    border: none;
+    background: #ced3d44a;
+    cursor: pointer;
+}
+.slider .button-slider-left{
+    left: 0;
+    border-radius: 14px 0 0 14px;
+}
+.slider .button-slider-left svg{
+    width: 50px;
+    height: 50px;
+}
+.slider .button-slider-right{
+    right: 0;
+    border-radius: 0 14px 14px 0;
+}
+.slider .button-slider-right svg{
+    width: 50px;
+    height: 50px;
+    transform: rotate(180deg);
+}
+.slider .slider-content{
+    width: 100%;
+    height: 100%;
+}
+
+.recommendations-container{
+    margin-top: 50px;
+    width: 100%;
+}
+.recommendations-container .recommendations-title{
+    width: 100%;
+    height: 50px;
+    border: 2px solid var(--blue-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.recommendations-container .recommendations-title h1{
+    font-size: 25px;
+    color: var(--black-gray);
+    font-weight: bold;
+}
+.product-container{
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.product-container .product-thumb{
+    width: 100%;
+    position: relative;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px;
+}
+.product-thumb .product-control{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.product-thumb .product-control .product-control-button{
+    display: flex;
+    gap: 10px;
+}
+.product-thumb .product-control .product-control-button button{
+    background: rgba(0, 0, 0, 0.141);
+    border: none;
+    padding: 6px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.product-thumb .product-control .product-control-button button svg{
+    fill: #da5b20;
+}
+.product-thumb .product-image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.product-thumb .product-image img{
+    width: 150px;
+}
+.product-thumb .product-information{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.product-thumb .product-information .product-name{
+    font-size: 17px;
+    color: var(--black-gray);
+    font-weight: bold;
+}
+.product-thumb .product-information .product-attribute{
+    font-size: 14px;
+    color: var(--black-gray);
+    font-weight: bold;
+    display: grid;
+    gap: 8px;
+    column-gap: 6px;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10px;
+}
+.product-thumb .product-price-and-cart{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.product-thumb .product-price-and-cart .product-price-container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background: lab(22.16% 0 0 / 0.087);
+    border-radius: 9px;
+    padding: 7px 15px;
+}
+.product-thumb .product-price-container .product-price{
+    color: #da5b20;
+    font-size: 19px;
+}
+.product-thumb .product-price-container .product-price-credit{
+    color: var(--black-gray);
+    font-size: 14px;
+}
+.product-thumb .product-price-and-cart .product-add-cart{
+    background: none;
+    border: 1px solid var(--white-gray);
+    padding: 7px 15px;
+    height: 55px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 250ms;
+}
+.product-thumb .product-price-and-cart .product-add-cart svg path{
+    transition: all 250ms;
+}
+.product-thumb .product-price-and-cart .product-add-cart:hover{
+    background: var(--white-gray);
+}
+.product-thumb .product-price-and-cart .product-add-cart:hover > svg path{
+    fill: #da5b20;
+}
