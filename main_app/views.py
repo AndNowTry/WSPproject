@@ -1,8 +1,8 @@
 from datetime import datetime
+from django.shortcuts import render
 from django.views.generic import TemplateView, View, ListView
 from django.http import JsonResponse
-from main_app.models import Products
-
+from main_app.models import Products, MainCategory, SecondaryCategory, TripleCategory
 
 
 class HomePageView(TemplateView):
@@ -49,6 +49,32 @@ class ProductsPageListView(ListView):
         if category:
             queryset = queryset.filter(category=category)
         return queryset
+
+
+
+class CategoryPageView(TemplateView):
+    """
+        Страничное представление категорий
+    """
+    template_name = "main_app/categories_page.html"
+
+    def get(self, request, *args, **kwargs):
+        level = kwargs.get('level')
+        name = kwargs.get('name')
+
+        if level not in ['main', 'second', 'triple']:
+            return None
+        else:
+            if level == "main":
+                categories = MainCategory.objects.all()
+                return render(request, self.template_name, {"level": "Главная категория", "objects": categories})
+            if level == "second":
+                categories = SecondaryCategory.objects.only("name", "photo").filter(category__name=name)
+                return render(request, self.template_name, {"level": "Вторичная категория", "objects": categories})
+            if level == "triple":
+                categories = TripleCategory.objects.only("name", "photo").filter(category__name=name)
+                return render(request, self.template_name, {"level": "Третичная категория", "objects": categories})
+
 
 
 

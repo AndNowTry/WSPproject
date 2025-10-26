@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from mptt.models import MPTTModel, TreeForeignKey
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 
 
@@ -24,10 +25,8 @@ class MainCategory(models.Model):
     def __str__(self):
         return self.name
 
-    '''
-    def get_get_absolute_url(self):
-        return redirect()
-    '''
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'level': 'second', 'name': self.name})
 
 
 class SecondaryCategory(models.Model):
@@ -48,6 +47,9 @@ class SecondaryCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'level': 'triple', 'name': self.name})
 
 
 

@@ -57,16 +57,11 @@ categoryBtns.forEach(btn => {
     btn.addEventListener("mouseenter", () => {
         hoverTimer = setTimeout(() => {
             activateCategory(btn);
-        }, 250); // задержка 300 мс
+        }, 20); // задержка 20 мс
     });
 
     btn.addEventListener("mouseleave", () => {
         clearTimeout(hoverTimer); // если курсор ушел раньше, таймер отменяется
-    });
-
-    btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        activateCategory(btn);
     });
 });
 

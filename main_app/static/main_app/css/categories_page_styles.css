@@ -35,11 +35,12 @@
     display: inline-block;
     text-align: center;
     width: 100%;
-    height: 120px;
+    height: 150px;
     line-height: 150px;
 }
 .category-page .category-item .category-image img{
-    width: 120px;
+    max-width: 120px;
+    max-height: 150px;
 }
 .category-name{
     display: flex;

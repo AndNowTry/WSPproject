@@ -3,7 +3,7 @@
         <div class="menu-top" id="main-top-container">
             <div class="container-menu-top">
                 <div class="logo">
-                    <a href="#" >WSP</a> <!-- logo-btn -->
+                    <a href="{% url 'home' %}" >WSP</a> <!-- logo-btn -->
                 </div>
                 <div class="search"> <!-- search-bar-container -->
                     <form action="#" method="get">
@@ -61,9 +61,9 @@
                 <div class="dropdown-content">
                     <div class="categories">
                         {% for main in main_categories %}
-                            <div class="category-btn" id="main-{{ main.id }}">
-                                <a href="#">{{ main.name }}</a>
-                            </div>
+                            <a class="category-btn" id="main-{{ main.id }}" href="{{ main.get_absolute_url }}">
+                                {{ main.name }}
+                            </a>
                         {% endfor %}
                     </div>
 
@@ -71,9 +71,9 @@
                         {% for main in main_categories %}
                             <div class="subcategory" data-parent="main-{{ main.id }}" style="display:none;">
                                 {% for secondary in main.secondary_category.all %}
-                                    <div class="sub-item">{{ secondary.name }}</div>
+                                    <a class="sub-item" href="{{ secondary.get_absolute_url }}">{{ secondary.name }}</a>
                                     {% for triple in secondary.triple_category.all %}
-                                        <div class="sub-item" style="font-size: 14px; margin: 10px 0px 10px 20px;">{{ triple.name }}</div>
+                                        <a class="sub-item" style="font-size: 14px; margin: 10px 0px 10px 20px;" href="{{ triple.get_absolute_url }}">{{ triple.name }}</a>
                                     {% endfor %}
                                 {% endfor %}
                             </div>
