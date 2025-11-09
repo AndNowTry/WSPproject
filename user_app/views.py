@@ -45,9 +45,11 @@ class UserPasswordResetView(PasswordResetView):
     success_url = reverse_lazy("user_app:password_reset_done_page")
 
 
+
 # Восстановление по почте успех
 class UserPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'user_app/password_reset_done_page.html'
+
 
 
 # Восстановление по почте изменение
@@ -56,12 +58,55 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
     success_url = reverse_lazy("user_app:password_reset_complete_page")
 
 
+
 # Восстановление по почте изменение успех
 class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'user_app/password_reset_complete_page.html'
 
 
-class ProfileView(FormView):
+
+class ProfileView(TemplateView):
+    """
+        Профиль
+    """
     template_name = 'user_app/profile_page.html'
-    success_url = reverse_lazy('profile')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = self.request.user.user_profiles
+        return context
+
+    def post(self, request):
+        avatar = request.FILES.get('avatar')
+        if avatar:
+            print(avatar)
+            profile = request.user.user_profiles
+            profile.avatar = avatar
+            profile.save()
+            return redirect('profile')
+
+        username = request.POST.get('username')
+        about_user = request.POST.get('about_user')
+
+        if username and about_user:
+            if not User.objects.filter(username=username).exists():
+                request.user.username = username
+                request.user.save()
+
+            request.user.user_profiles.about_user = about_user
+            request.user.user_profiles.save()
+            return redirect('profile')
+
+        if username:
+            if not User.objects.filter(username=username).exists():
+                request.user.username = username
+                request.user.save()
+            return redirect('profile')
+
+        if about_user:
+            request.user.user_profiles.about_user = about_user
+            request.user.user_profiles.save()
+            return redirect('profile')
+
+        return redirect('profile')
 

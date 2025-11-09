@@ -1,8 +1,12 @@
 from datetime import datetime
+from itertools import product
+from urllib.parse import unquote
+
 from django.shortcuts import render
 from django.views.generic import TemplateView, View, ListView
 from django.http import JsonResponse
 from main_app.models import Products, MainCategory, SecondaryCategory, TripleCategory
+
 
 
 class HomePageView(TemplateView):
@@ -19,18 +23,6 @@ class HomePageView(TemplateView):
 
 
 
-class GetDataView(View):
-    """
-        Базовый пример ajax
-    """
-    def get(self, request):
-        data = {                                  #тестил ajax
-            "message": str(datetime.now())
-        }
-        return JsonResponse(data)
-
-
-
 class ProductsPageListView(ListView):
     """
         Страничное представление продуктов
@@ -38,16 +30,18 @@ class ProductsPageListView(ListView):
     model = Products
     template_name = "main_app/products_page.html"
     context_object_name = 'products'
+    paginate_by = 8
 
-    def post(self, request, *args, **kwargs):
-        self.category = request.POST.get('category')
-        return self.get(request, *args, **kwargs)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context["category_name"] = self.kwargs.get('name')
+        return context
 
     def get_queryset(self):
-        queryset = ProductsPageListView.model.objects.all()
-        category = getattr(self, 'category', None)
+        queryset = super().get_queryset()
+        category = self.kwargs.get('name')
         if category:
-            queryset = queryset.filter(category=category)
+            queryset = queryset.filter(category__name=category)
         return queryset
 
 
@@ -77,8 +71,19 @@ class CategoryPageView(TemplateView):
 
 
 
-
 class ProductPageView(TemplateView):
     """
-        Страничка продукта
+        Страничное представление продукта
     """
+    template_name = "main_app/product_cart_page.html"
+
+    def get(self, request, *args, **kwargs):
+        name = unquote(kwargs.get('name'))
+        product = Products.objects.get(name = name)
+        return render(request, self.template_name, {"name": product.name, "object": product})
+
+
+
+
+
+

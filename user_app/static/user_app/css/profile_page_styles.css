@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-.profile_second_main
+.profile_main .profile_second_main
 {
     height: 100vh;
     width: 60%;
@@ -14,15 +14,14 @@
     box-shadow: 0 20px 40px gray;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: start;
 }
 
-.profile_main_form
+dialog[open]
 {
-    height: 80%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 

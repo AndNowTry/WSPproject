@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from mptt.models import MPTTModel, TreeForeignKey
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-
+from urllib.parse import quote
 
 
 class MainCategory(models.Model):
@@ -71,6 +71,9 @@ class TripleCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('products', kwargs={'name': self.name})
 
 #=======================================================================================================================
 
@@ -170,6 +173,10 @@ class Products(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('product', kwargs={'name': self.name})
+
+
 
 class ProductCharacteristics(models.Model):
     """
@@ -243,6 +250,11 @@ class ProductPhotos(models.Model):
                 name='unique_product_photos'
             )
         ]
+
+    def __str__(self):
+        return self.product.name
+
+
 
 
 

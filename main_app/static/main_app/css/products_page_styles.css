@@ -208,3 +208,36 @@
 .product-container .product-item .product-info .product-info-right .product-buy:hover{
     background: #d6622d;
 }
+
+.pagination
+{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination .pagination_main
+{
+    padding: 6px;
+    background: var(--white-gray);
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination .pagination_main a
+{
+    margin: 0 10px 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination img
+{
+    width: 30px;
+    height: 30px;
+}
+

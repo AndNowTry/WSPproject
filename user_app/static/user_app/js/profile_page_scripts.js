@@ -1,15 +1,14 @@
 document.addEventListener('DOMContentLoaded', function()
 {
-    const fileInput = document.getElementById('id_avatar');
-    const form = document.getElementById('profile-form');
+    const dialog_button_open = document.getElementById('dialog_button_open')
+    const dialog_button_close = document.getElementById('dialog_button_close')
+    const dialog_window = document.getElementById('dialog_window')
 
-    if (fileInput)
-    {
-        console.log(2);
-        fileInput.addEventListener('change', function()
-        {
-            console.log(1);
-            form.submit();
-        });
-    }
+    dialog_button_open.addEventListener("click", function () {
+      dialog_window.showModal()
+    })
+
+    dialog_button_close.addEventListener("click", function () {
+      dialog_window.close()
+    })
 });

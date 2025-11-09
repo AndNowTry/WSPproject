@@ -3,40 +3,54 @@
 
 {% block extra_content %}
 <link rel="stylesheet" href="{% static 'user_app/css/profile_page_styles.css' %}">
+<script src="{% static 'user_app/js/profile_page_scripts.js' %}"></script>
 {% endblock %}
 
 
 {% block main_content %}
 <div class="profile_main">
     <div class="profile_second_main">
-        <!--<form class="profile_main_form" method="post" id="profile-form">
-            {% csrf_token %}
+        <h1>Аватар</h1>
 
-            {% if user.user_profiles.avatar %}
-                <img src="{{ user.user_profiles.avatar.url }}" alt="avatar" width="120" height="120">
-            {% else %}
-                Фото с вопросительным знаком
-            {% endif %}
+        {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" style="width: 200px; height: 200px"/>
+        {% else %}
+            <h1>Ничего еще нет</h1>
+        {% endif %}
 
-            {{ Profile_form.avatar }}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            <h1>Изменить аватар</h1>
+            <input type="file" name="avatar" onchange="this.form.submit()" accept="image/png, image/jpeg">
+        </form>
 
-            {{ User_form.username.label }}
-            {{ User_form.username }}
+        <h1>Ник</h1>
+        <h1>{{ user.username }}</h1>
 
-            {{ Profile_form.bonuses.label }}
-            {{ user.user_profiles.bonuses }}
+        <h1>Бонусы</h1>
+        <h1>{{ profile.bonuses }}</h1>
 
-            <br>
+        <h1>О себе</h1>
+        <h1>{{ profile.about_user }}</h1>
 
-            {{ Profile_form.about_user.label }}
-            {{ Profile_form.about_user }}
+        <button type="button" id="dialog_button_open">Изменить данные</button>
 
-            <button type="submit">Сохранить</button>
-        </form>-->
+        <dialog id="dialog_window">
+            <form method="post" id="info_form">
+                {% csrf_token %}
+                <h1>Aватар</h1>
+                <input type="text" name="username" minlength="4" maxlength="16" value="{{ user }}">
+                <h1>Описание</h1>
+                <textarea form="info_form" name="about_user">{{ profile.about_user }}</textarea>
+                <button type="submit">Сохранит изменения</button>
+            </form>
+
+            <button type="button" id="dialog_button_close">Выйти</button>
+        </dialog>
 
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit">Выйти</button>
+            <button type="submit">Выйти из аккаунта</button>
         </form>
     </div>
 </div>
