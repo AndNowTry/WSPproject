@@ -13,6 +13,8 @@
     <script src="{% static 'js/header.js' %}" defer></script>
     <script src="{% static 'js/header-search.js' %}" defer></script>
 
+    <meta http-equiv="Cache-Control" content="no-store" />
+
     {% block extra_content %}
 
     {% endblock %}
@@ -24,5 +26,112 @@
         {% endblock %}
 
         {% include "includes/footer.html" %}
+
+        <script>
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.favorite-btn');
+            if (!btn) return;
+
+            e.preventDefault();
+
+            const productId = btn.dataset.id;
+            const action = btn.dataset.action;
+            const url = action === 'add'
+                ? `/favorite/add/${productId}/`
+                : `/favorite/remove/${productId}/`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(resp => {
+                if (resp.status === 401) {
+                    // Редирект на страницу логина с возвратом на текущую страницу
+                    window.location.href = '/users/login/?next=' + window.location.pathname;
+                    return null; // прекращаем дальнейшую обработку
+                }
+                return resp.json(); // преобразуем ответ в JSON
+            })
+            .then(data => {
+                if (!data.success) return;
+
+                const svg = btn.querySelector('svg');
+
+                if (action === 'add') {
+                    btn.classList.add('active');
+                    btn.dataset.action = 'remove';
+                    if (svg) svg.setAttribute('fill', '#ff0000');
+                } else {
+                    btn.classList.remove('active');
+                    btn.dataset.action = 'add';
+                    if (svg) svg.setAttribute('fill', '#fff');
+
+                    // Если есть локальная функция удаления карточки — вызываем её
+                    if (typeof handleFavoriteRemove === 'function') {
+                        handleFavoriteRemove(btn);
+                    }
+                }
+            });
+        });
+        </script>
+
+        <script>
+            document.addEventListener('click', function (e)
+            {
+
+                const btn = e.target.closest('.cart-btn')
+                if (!btn) return
+
+                e.preventDefault()
+
+                const productId = btn.dataset.id
+                const action = btn.dataset.action
+
+                console.log('CLICK:', productId, action)
+
+                const url = action === 'add'
+                    ? `/order/create/${productId}/`
+                    : `/order/delete/${productId}/`
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(resp => {
+                    if (resp.status === 401) {
+                        window.location.href = '/users/login/?next=' + window.location.pathname
+                        return null
+                    }
+
+                    return resp.json()
+                })
+                .then(data => {
+                    if (!data) return
+                    console.log('RESPONSE:', data)
+
+                    if (!data.success) return
+
+                    if (action === 'add') {
+                        btn.classList.remove('product-add-cart')
+                        btn.classList.add('product-add-cart_active')
+                        btn.dataset.action = 'remove'
+                    } else {
+                        btn.classList.remove('product-add-cart_active')
+                        btn.classList.add('product-add-cart')
+                        btn.dataset.action = 'add'
+
+                        if (typeof handleOrderRemove === 'function') {
+                            handleOrderRemove(btn)
+                        }
+                    }
+                })
+            })
+        </script>
     </body>
 </html>

@@ -1,0 +1,27 @@
+.product-add-cart{
+    background: none;
+    border: 1px solid red;
+    padding: 7px 15px;
+    height: 55px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 250ms;
+}
+.product-add-cart_active{
+    background: var(--white-gray);
+    border: 1px solid black;
+    padding: 7px 15px;
+    height: 55px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 250ms;
+}
+.product-add-cart svg path{
+    transition: all 250ms;
+}
+.product-add-cart:hover{
+    background: var(--white-gray);
+}
+.product-add-cart:hover > svg path{
+    fill: #da5b20;
+}

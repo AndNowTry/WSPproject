@@ -8,3 +8,9 @@ admin.site.register(Favorites)
 admin.site.register(Comparisons)
 admin.site.register(Orders)
 admin.site.register(Purchases)
+
+
+admin.site.site_header = "Админ панелька"
+admin.site.site_title = "Админ панелька"
+admin.site.index_title = "Администрирование бд"
+

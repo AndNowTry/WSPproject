@@ -128,6 +128,9 @@ class Characteristics(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.name
+
 
 
 class CategoryCharacteristics(models.Model):
@@ -301,6 +304,9 @@ class Promotions(models.Model):
     def clean(self):
         if self.end_datetime < self.start_datetime:
             raise ValidationError("Дата окончания акции не может быть раньше даты начала")
+
+    def __str__(self):
+        return "Скидки" + self.product.name
 
 
 

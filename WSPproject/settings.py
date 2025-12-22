@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'django_filters',
     #'social_django',
     'mptt',
     'main_app',
@@ -71,7 +72,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'main_app.context_processors.catalog_processor'
+                'main_app.context_processors.catalog_processor',
+                'main_app.context_processors.search_input_processor',
+                'main_app.context_processors.user_products_context',
             ],
         },
     },
@@ -94,6 +97,7 @@ DATABASES = {
     }
 }
 
+LOGIN_URL = '/users/login/'
 
 MEDIA_URL = '/media/'
 

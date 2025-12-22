@@ -6,7 +6,9 @@ from django.contrib.auth.views import LoginView, PasswordResetView, PasswordRese
     PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.auth.models import User
 from .forms import UserRegisterForm, EmailLoginForm
+from django.core.exceptions import ObjectDoesNotExist
 
+from .models import Profiles
 
 
 class UserRegisterView(CreateView):
@@ -64,7 +66,6 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'user_app/password_reset_complete_page.html'
 
 
-
 class ProfileView(TemplateView):
     """
         Профиль
@@ -73,7 +74,15 @@ class ProfileView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['profile'] = self.request.user.user_profiles
+
+        profile, created = Profiles.objects.get_or_create(
+            user=self.request.user,
+            defaults={
+                'avatar': 'avatars/not_found.png'
+            }
+        )
+
+        context['profile'] = profile
         return context
 
     def post(self, request):
