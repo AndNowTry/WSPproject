@@ -310,23 +310,29 @@ class Promotions(models.Model):
 
 
 
-"""
-class Comments(MPTTModel):
+
+class ProductComments(models.Model):
+    """
+        Комменты продуктов
+    """
     product = models.ForeignKey(Products, on_delete = models.CASCADE, related_name = "product_comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
     rating = models.PositiveSmallIntegerField()
-    likes = models.PositiveIntegerField()
-    dislikes = models.PositiveIntegerField()
+    likes = models.PositiveIntegerField(default=0)
+    dislikes = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     is_updated = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
 
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-
-    class MPTTMeta:
-        order_insertion_by = ['created']
-
     class Meta:
-        ordering = ['tree_id', 'lft']
-"""
+        constraints = [
+            models.UniqueConstraint(
+                fields=['author', 'product'],
+                name='unique_author_product'
+            )
+        ]
+
+
+
+

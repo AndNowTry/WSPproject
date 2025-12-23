@@ -2,6 +2,7 @@ from datetime import datetime
 from urllib.parse import unquote
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Avg
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
 
@@ -9,12 +10,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, View, ListView
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.utils.timezone import now
 
 from main_app.filters import ProductsFilter
-from main_app.models import Products, MainCategory, SecondaryCategory, TripleCategory, Promotions
+from main_app.models import Products, MainCategory, SecondaryCategory, TripleCategory, Promotions, ProductComments
 from user_app.models import Favorites, Orders
+
+
 
 @method_decorator(never_cache, name='dispatch')
 class HomePageView(TemplateView):
@@ -31,6 +34,7 @@ class HomePageView(TemplateView):
         )
         context["products"] = Products.objects.filter(is_active=True)
         return context
+
 
 
 @method_decorator(never_cache, name='dispatch')
@@ -104,6 +108,7 @@ class CategoryPageView(TemplateView):
                 return render(request, self.template_name, {"level": "Третичная категория", "objects": categories})
 
 
+
 @method_decorator(never_cache, name='dispatch')
 class ProductPageView(TemplateView):
     """
@@ -114,7 +119,15 @@ class ProductPageView(TemplateView):
     def get(self, request, *args, **kwargs):
         name = unquote(kwargs.get('name'))
         product = Products.objects.get(name = name)
-        return render(request, self.template_name, {"name": product.name, "object": product})
+        comments = ProductComments.objects.filter(product=product)
+        average_rating = comments.aggregate(avg=Avg('rating'))['avg'] or 0
+
+        user_can_comment = True
+        if request.user.is_authenticated:
+            if product.product_comments.filter( author=request.user).first():
+                user_can_comment = False
+
+        return render(request, self.template_name, {"name": product.name, "object": product, "comments": comments, "user_can_comment": user_can_comment, "average_rating": round(average_rating, 1)})
 
 
 
@@ -156,6 +169,9 @@ class OrderCartsPageView(LoginRequiredMixin, TemplateView):
 
 @require_POST
 def add_favorite(request, product_id):
+    """
+        Создает избранные пользователя
+    """
     if not request.user.is_authenticated:
         return JsonResponse({'success': False, 'error': 'Authentication required'}, status=401)
 
@@ -167,6 +183,9 @@ def add_favorite(request, product_id):
 
 @require_POST
 def remove_favorite(request, product_id):
+    """
+        Удаляет избранные пользователя
+    """
     if not request.user.is_authenticated:
         return JsonResponse({'success': False, 'error': 'Authentication required'}, status=401)
 
@@ -199,6 +218,52 @@ def delete_order(request, product_id):
 
     Orders.objects.filter(user=request.user, product_id=product_id, is_paid=False).delete()
     return JsonResponse({'success': True, 'product_id': product_id})
+
+
+
+@require_POST
+@login_required(login_url='/users/login/')
+def add_comment(request, product_id):
+    """
+        Создает коммент пользователя
+    """
+    product = get_object_or_404(Products, id=product_id)
+
+    text = request.POST.get('reviews')
+    rating = request.POST.get('rating')
+
+    comment, created = ProductComments.objects.update_or_create(
+        author=request.user,
+        product=product,
+        defaults={
+            'text': text,
+            'rating': rating,
+        }
+    )
+
+    if not created:
+        comment.is_updated = True
+        comment.save(update_fields=['is_updated'])
+
+    return redirect('product', name=product.name)
+
+
+
+@login_required
+@require_POST
+def delete_comment(request, comment_id):
+    """
+        Удаляет коммент пользователя
+    """
+    comment = get_object_or_404(ProductComments, id=comment_id)
+
+    if comment.author != request.user and not request.user.is_staff:
+        return HttpResponseForbidden("У вас нет прав на удаление")
+
+    product_name = comment.product.name
+    comment.delete()
+
+    return redirect('product', name=product_name)
 
 
 
