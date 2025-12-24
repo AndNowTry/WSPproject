@@ -1,62 +1,104 @@
-.favorite-btn {
-    background: rgba(0, 0, 0, 0.141);
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
+.favorites-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    max-width: 1380px;
+    margin: auto;
+}
+
+.favorite-card {
+    width: 100%;
+}
+
+.favorite-card .product-card {
+    position: relative;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.favorite-card .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(0,0,0,.15);
+}
+
+.favorite-card .product-card a {
+    display: flex;
+    justify-content: center;
+}
+
+.favorite-card .product-card img {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+}
+
+.favorite-card .product-card h3 {
+    font-size: 16px;
+    color: var(--black-gray);
+    font-weight: bold;
+    margin: 5px 0 0;
+    min-height: 40px;
+}
+
+.favorite-card .product-card p {
+    font-size: 19px;
+    color: #da5b20;
+    font-weight: bold;
+    margin: 0;
+}
+
+.favorite-card .product-add-cart {
+    background: none;
+    border: 1px solid var(--white-gray);
+    border-radius: 9px;
+    height: 55px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: all .25s ease;
 }
 
-.favorite-btn:hover {
-    background: rgba(0, 0, 0, 0.25);
+.favorite-card .product-add-cart:hover {
+    background: var(--white-gray);
+}
+
+.favorite-card .product-add-cart:hover svg path {
+    fill: #da5b20;
+}
+
+.favorite-card .favorite-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,.14);
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.favorite-card .favorite-btn:hover {
+    background: rgba(0,0,0,.25);
     transform: scale(1.05);
 }
 
-.favorite-btn.active {
+.favorite-card .favorite-btn.active {
     background: #ff0000;
 }
 
-.favorite-btn svg {
+.favorite-card .favorite-btn svg {
     width: 20px;
     height: 20px;
-    transition: fill 0.2s ease;
-}
-
-.favorite-btn:not(.active) svg {
     fill: #fff;
-}
-
-.favorite-btn.active svg {
-    fill: #fff;
-}
-
-.product-add-cart{
-    background: none;
-    border: 1px solid red;
-    padding: 7px 15px;
-    height: 55px;
-    border-radius: 9px;
-    cursor: pointer;
-    transition: all 250ms;
-}
-.product-add-cart_active{
-    background: var(--white-gray);
-    border: 1px solid black;
-    padding: 7px 15px;
-    height: 55px;
-    border-radius: 9px;
-    cursor: pointer;
-    transition: all 250ms;
-}
-.product-add-cart svg path{
-    transition: all 250ms;
-}
-.product-add-cart:hover{
-    background: var(--white-gray);
-}
-.product-add-cart:hover > svg path{
-    fill: #da5b20;
 }

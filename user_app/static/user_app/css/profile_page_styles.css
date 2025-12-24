@@ -1,27 +1,278 @@
-.profile_main
-{
-    height: 100vh;
+:root {
+    --black-gray: lab(22.16% 0 0);
+    --gray: #999;
+    --black-brown: #8C6D51;
+    --white-gray: #E5E5E5;
+    --white: #fff;
+    --red-brown: #BC430D;
+    --blue-gray: #CED3D4;
+    --bg: #F9F9F9;
+}
+body{
     width: 100%;
+    height: 100vh;
+    margin: 0px;
+    font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif !important;
+    background: var(--bg);
     display: flex;
+    align-items: center;
     justify-content: center;
 }
-
-.profile_main .profile_second_main
+header
 {
-    height: 100vh;
-    width: 60%;
-    background-color: #E5E5E5;
-    box-shadow: 0 20px 40px gray;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 9vh;
+    width: 100%;
+    font-weight: bold;
+    font-size: 40px;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
+    align-items: center;
+
+}
+.logo-button{
+    margin-left: 20px;
+    color: var(--black-gray);
+    text-decoration: none;
 }
 
-dialog[open]
-{
+
+.profile_main {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    font-family: Montserrat, system-ui, sans-serif;
+}
+
+.profile_second_main {
+    width: 420px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.08);
+    text-align: center;
+}
+
+.profile_second_main h1 {
+    font-size: 18px;
+    margin: 12px 0;
+}
+
+.profile_second_main img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #eee;
+    transition: .3s ease;
+}
+
+.profile_second_main img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.profile_second_main input[type="file"] {
+    margin-top: 10px;
+}
+
+.profile_info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 22px 0;
+}
+
+.info_card {
+    background: #f9f9f9;
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.info_card span {
+    display: block;
+    font-size: 12px;
+    color: #777;
+}
+
+.info_card strong {
+    font-size: 16px;
+    color: #BC430D;
+}
+
+.info_card.full {
+    grid-column: span 2;
+}
+
+.info_card p {
+    margin: 6px 0 0;
+    font-size: 14px;
+}
+
+.profile_second_main button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+#dialog_button_open {
+    background: #BC430D;
+    color: #fff;
+    margin-top: 16px;
+}
+
+#dialog_button_open:hover {
+    background: #a63b0c;
+}
+
+form[action*="logout"] button {
+    background: #eee;
+    margin-top: 12px;
+}
+
+
+dialog {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.96);
+
+    border: none;
+    border-radius: 20px;
+    padding: 26px;
+    width: 360px;
+
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow:
+        0 30px 60px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.6);
+
+    backdrop-filter: blur(12px);
+
+    opacity: 0;
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
 }
 
+dialog[open] {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+dialog[open] h1{
+    font-size: 18px;
+    text-align: left;
+    margin: 0;
+}
+
+dialog::backdrop {
+    background: linear-gradient(
+        180deg,
+        rgba(0,0,0,.45),
+        rgba(0,0,0,.65)
+    );
+    backdrop-filter: blur(6px);
+}
+
+dialog input,
+dialog textarea {
+    width: 100%;
+    margin: 12px 0;
+    padding-left: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 12px;
+    border: 1px solid #d0d0d0;
+    font-size: 14px;
+    background: rgba(255,255,255,.9);
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+dialog input:focus,
+dialog textarea:focus {
+    outline: none;
+    border-color: #BC430D;
+    box-shadow: 0 0 0 3px rgba(188, 67, 13, 0.2);
+}
+
+dialog button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 14px;
+    border-radius: 14px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+dialog button[type="submit"] {
+    background: #BC430D;
+    color: #fff;
+}
+
+dialog button[type="submit"]:hover {
+    box-shadow: 0 8px 20px rgba(188, 67, 13, 0.4);
+}
+
+#dialog_button_close {
+    background: #eee;
+}
+
+dialog button:active {
+    transform: scale(0.97);
+}
+.form-avatar {
+    width: 100%;
+    max-width: 360px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.form-avatar h1 {
+    font-size: 18px;
+    color: var(--black-gray);
+    margin: 0;
+}
+
+.form-avatar__label input[type="file"] {
+    display: none;
+}
+
+.form-avatar__label span {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 14px;
+    background: var(--red-brown);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.form-avatar__label span:hover {
+    background: #a63b0c;
+    transform: translateY(-2px);
+}
+
+.form-avatar__label span:active {
+    transform: translateY(1px);
+}
+
+.form-avatar small {
+    font-size: 12px;
+    color: #777;
+}

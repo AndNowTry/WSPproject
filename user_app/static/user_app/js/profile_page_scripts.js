@@ -1,14 +1,32 @@
-document.addEventListener('DOMContentLoaded', function()
-{
-    const dialog_button_open = document.getElementById('dialog_button_open')
-    const dialog_button_close = document.getElementById('dialog_button_close')
-    const dialog_window = document.getElementById('dialog_window')
+document.addEventListener('DOMContentLoaded', () => {
+    const openBtn = document.getElementById('dialog_button_open');
+    const closeBtn = document.getElementById('dialog_button_close');
+    const dialog = document.getElementById('dialog_window');
 
-    dialog_button_open.addEventListener("click", function () {
-      dialog_window.showModal()
-    })
+    if (!openBtn || !closeBtn || !dialog) return;
 
-    dialog_button_close.addEventListener("click", function () {
-      dialog_window.close()
-    })
+    openBtn.addEventListener('click', () => {
+        dialog.showModal();
+        dialog.classList.add('dialog-open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        closeDialog();
+    });
+
+    dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) {
+            closeDialog();
+        }
+    });
+
+    function closeDialog() {
+        dialog.classList.remove('dialog-open');
+        dialog.classList.add('dialog-close');
+
+        setTimeout(() => {
+            dialog.close();
+            dialog.classList.remove('dialog-close');
+        }, 200);
+    }
 });

@@ -261,3 +261,6 @@ header .menu-bottom .catalog .dropdown-content .subcategories .sub-item{
 header .menu-bottom .catalog .dropdown-content .subcategories .sub-item:hover{
     background-color: var(--blue-gray);
 }
+.main{
+    min-height: 30vh;
+}
