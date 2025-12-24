@@ -1,27 +1,93 @@
-.product-add-cart{
+/* Список товаров в корзине */
+.orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    max-width: 1380px;
+    margin: auto;
+}
+
+/* Карточка заказа */
+.order-card {
+    position: relative;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(0,0,0,.15);
+}
+
+/* Картинка */
+.order-card a {
+    display: flex;
+    justify-content: center;
+}
+
+.order-card img {
+    width: 150px;
+    object-fit: contain;
+}
+
+/* Название */
+.order-card h3 {
+    font-size: 16px;
+    color: var(--black-gray);
+    font-weight: bold;
+    min-height: 40px;
+    margin: 5px 0 0;
+}
+
+/* Цена */
+.order-card > p:first-of-type {
+    font-size: 19px;
+    color: #da5b20;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* ID / количество (маленький бейдж) */
+.order-card > p:nth-of-type(2) {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background: rgba(0,0,0,.08);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--black-gray);
+}
+
+/* Кнопка удаления из корзины */
+.order-card .product-add-cart_active {
+    margin-top: auto;
     background: none;
-    border: 1px solid red;
-    padding: 7px 15px;
-    height: 55px;
+    border: 1px solid var(--white-gray);
     border-radius: 9px;
-    cursor: pointer;
-    transition: all 250ms;
-}
-.product-add-cart_active{
-    background: var(--white-gray);
-    border: 1px solid black;
-    padding: 7px 15px;
     height: 55px;
-    border-radius: 9px;
     cursor: pointer;
-    transition: all 250ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s ease;
 }
-.product-add-cart svg path{
-    transition: all 250ms;
-}
-.product-add-cart:hover{
+
+.order-card .product-add-cart_active:hover {
     background: var(--white-gray);
 }
-.product-add-cart:hover > svg path{
+
+.order-card .product-add-cart_active:hover svg path {
     fill: #da5b20;
+}
+
+/* Иконка */
+.order-card .product-add-cart_active svg path {
+    transition: fill .25s ease;
 }

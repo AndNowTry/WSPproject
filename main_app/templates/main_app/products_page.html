@@ -92,26 +92,11 @@
                   </div>
                 </div>
                 <div class="product-info-right">
-                  {% if obj.id not in user_favorites %}
-                      <button type="button" class="favorite-btn"
-                              data-id="{{ obj.id }}"
-                              data-action="add"> <!-- Не менять название класса и не удалять тег с классом, только стили, так как js работает на нем -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 16 16" fill="#fff">
-                              <path d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"/>
-                          </svg>
-                      </button>
-                  {% else %}
-                      <button type="button" class="favorite-btn active"
-                              data-id="{{ obj.id }}"
-                              data-action="remove"> <!-- Не менять название класса и не удалять тег с классом, только стили, так как js работает на нем -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 16 16" fill="#ff0000">
-                              <path d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"/>
-                          </svg>
-                      </button>
-                  {% endif %}
+
                   <div class="product-info-price">
                     <span class="product-price">{{ obj.price }} руб</span>
                     <span class="product-price-credit">Рассрочка отсутствует</span>
+                      <div class="product-control-buuton">
                     {% if obj.id not in user_orders %}
                         <button class="product-add-cart cart-btn"
                                 data-id="{{ obj.id }}"
@@ -133,6 +118,24 @@
                             </svg>
                         </button>
                     {% endif %}
+                      {% if obj.id not in user_favorites %}
+                          <button type="button" class="favorite-btn"
+                                  data-id="{{ obj.id }}"
+                                  data-action="add"> <!-- Не менять название класса и не удалять тег с классом, только стили, так как js работает на нем -->
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 16 16" fill="#fff">
+                                  <path d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"/>
+                              </svg>
+                          </button>
+                      {% else %}
+                          <button type="button" class="favorite-btn active"
+                                  data-id="{{ obj.id }}"
+                                  data-action="remove"> <!-- Не менять название класса и не удалять тег с классом, только стили, так как js работает на нем -->
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 16 16" fill="#ff0000">
+                                  <path d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"/>
+                              </svg>
+                          </button>
+                      {% endif %}
+                      </div>
                   </div>
                 </div>
               </div>

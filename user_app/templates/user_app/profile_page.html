@@ -1,4 +1,6 @@
-{% extends "base_page.html" %}
+<header>
+    <a class="logo-button" href="{% url 'home' %}">WSP</a>
+</header>
 {% load static %}
 
 {% block extra_content %}
@@ -18,31 +20,44 @@
             <h1>Ничего еще нет</h1>
         {% endif %}
 
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
+        <form method="post" enctype="multipart/form-data" class="form-avatar">
+            {% csrf_token %}
             <h1>Изменить аватар</h1>
-            <input type="file" name="avatar" onchange="this.form.submit()" accept="image/png, image/jpeg">
+            <label class="form-avatar__label">
+                <input type="file" name="avatar" onchange="this.form.submit()" accept="image/png, image/jpeg">
+                <span>Выбрать изображение</span>
+            </label>
         </form>
 
-        <h1>Ник</h1>
-        <h1>{{ user.username }}</h1>
 
-        <h1>Бонусы</h1>
-        <h1>{{ profile.bonuses }}</h1>
+        <div class="profile_info">
+            <div class="info_card">
+                <span>Ник</span>
+                <strong>{{ user.username }}</strong>
+            </div>
 
-        <h1>О себе</h1>
-        <h1>{{ profile.about_user }}</h1>
+            <div class="info_card">
+                <span>Бонусы</span>
+                <strong>{{ profile.bonuses }}</strong>
+            </div>
+
+            <div class="info_card full">
+                <span>О себе</span>
+                <p>{{ profile.about_user|default:"—" }}</p>
+            </div>
+        </div>
+
 
         <button type="button" id="dialog_button_open">Изменить данные</button>
 
         <dialog id="dialog_window">
             <form method="post" id="info_form">
                 {% csrf_token %}
-                <h1>Aватар</h1>
-                <input type="text" name="username" minlength="4" maxlength="16" value="{{ user }}">
+                <h1>Имя профиля</h1>
+                <input type="text" name="username" minlength="4" maxlength="16" value="{{ user }}" autocomplete="off">
                 <h1>Описание</h1>
                 <textarea form="info_form" name="about_user">{{ profile.about_user }}</textarea>
-                <button type="submit">Сохранит изменения</button>
+                <button type="submit">Сохранить изменения</button>
             </form>
 
             <button type="button" id="dialog_button_close">Выйти</button>
