@@ -102,3 +102,38 @@
     height: 20px;
     fill: #fff;
 }
+
+
+
+
+
+
+
+
+
+
+
+.product-card .product-add-cart_active {
+    height: 55px;
+    margin-top: auto;
+    background: none;
+    border: 1px solid var(--white-gray);
+    border-radius: 9px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s ease;
+}
+
+.product-card .product-add-cart_active:hover {
+    background: var(--white-gray);
+}
+
+.product-card .product-add-cart_active:hover svg path {
+    fill: #da5b20;
+}
+
+.product-card .product-add-cart_active svg path {
+    transition: fill .25s ease;
+}

@@ -262,7 +262,7 @@ header .menu-bottom .catalog .dropdown-content .subcategories .sub-item:hover{
     background-color: var(--blue-gray);
 }
 .main{
-    min-height: 50vh;
+    min-height: 80vh;
     max-width: 1380px;
     margin: auto;
     position: relative;

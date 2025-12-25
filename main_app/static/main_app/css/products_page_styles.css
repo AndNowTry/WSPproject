@@ -362,21 +362,31 @@
     cursor: pointer;
     transition: all 250ms;
 }
-.product-add-cart_active{
-    background: var(--white-gray);
-    border: 1px solid black;
+.product-add-cart_active,
+.product-add-cart{
+    background: #fff;
+    border: none;
     padding: 7px 15px;
     height: 55px;
     border-radius: 9px;
     cursor: pointer;
     transition: all 250ms;
+    background: var(--red-brown);
+    border-radius: 9px;
+    padding: 7px 15px;
+    width: 150px !important;
 }
-.product-add-cart svg path{
+.cart-btn svg path{
+    fill: #fff !important;
+}
+.product-add-cart_active svg path,
+.product-add-car svg path{
     transition: all 250ms;
+    fill: #fff !important;
 }
-.product-add-cart:hover{
-    background: var(--white-gray);
+.product-add-cart_active:hover{
+    background: #fff;
 }
-.product-add-cart:hover > svg path{
+.product-add-cart_active:hover > svg path{
     fill: #da5b20;
 }
