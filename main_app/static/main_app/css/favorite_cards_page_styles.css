@@ -116,7 +116,7 @@
 .product-card .product-add-cart_active {
     height: 55px;
     margin-top: auto;
-    background: none;
+    background: var(--red-brown);
     border: 1px solid var(--white-gray);
     border-radius: 9px;
     cursor: pointer;
@@ -131,9 +131,10 @@
 }
 
 .product-card .product-add-cart_active:hover svg path {
-    fill: #da5b20;
+    fill: #fff;
 }
 
 .product-card .product-add-cart_active svg path {
     transition: fill .25s ease;
+    fill: #fff;
 }

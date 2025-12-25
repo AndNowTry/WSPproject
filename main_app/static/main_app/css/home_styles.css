@@ -191,13 +191,16 @@
     transition: all 250ms;
 }
 .product-thumb .product-price-and-cart .product-add-cart_active{
-    background: var(--white-gray);
+    background: var(--red-brown);
     border: 1px solid var(--white-gray);
     padding: 7px 15px;
     height: 55px;
     border-radius: 9px;
     cursor: pointer;
     transition: all 250ms;
+}
+.product-thumb .product-price-and-cart .product-add-cart_active svg path{
+    fill: #fff;
 }
 .product-thumb .product-price-and-cart .product-add-cart svg path{
     transition: all 250ms;

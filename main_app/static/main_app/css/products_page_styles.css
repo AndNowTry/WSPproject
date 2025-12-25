@@ -364,22 +364,24 @@
 }
 .product-add-cart_active,
 .product-add-cart{
-    background: #fff;
+    background: #C8C8C8;
     border: none;
     padding: 7px 15px;
     height: 55px;
     border-radius: 9px;
     cursor: pointer;
     transition: all 250ms;
-    background: var(--red-brown);
     border-radius: 9px;
     padding: 7px 15px;
     width: 150px !important;
 }
-.cart-btn svg path{
+.product-add-cart_active{
+    background: var(--red-brown);
+}
+.product-add-cart_active svg path{
+    transition: all 250ms;
     fill: #fff !important;
 }
-.product-add-cart_active svg path,
 .product-add-car svg path{
     transition: all 250ms;
     fill: #fff !important;
