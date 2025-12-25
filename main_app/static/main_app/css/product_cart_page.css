@@ -696,7 +696,9 @@
     background: rgba(0, 0, 0, 0.141);
     border: none;
     padding: 10px;
-    border-radius: 5px;
+    width: 55px;
+    height: 55px;
+    border-radius: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -738,12 +740,15 @@
 }
 .product-add-cart_active{
     background: var(--white-gray);
-    border: 1px solid black;
+    border: none;
     padding: 7px 15px;
     height: 55px;
     border-radius: 9px;
     cursor: pointer;
     transition: all 250ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .product-add-cart svg path{
     transition: all 250ms;
@@ -753,4 +758,41 @@
 }
 .product-add-cart:hover > svg path{
     fill: #da5b20;
+}
+.product-reviews-add{
+    padding: 12px;
+    border-radius: 14px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    background: #BC430D;
+    color: #fff;
+    margin-top: 16px;
+    transition: all 250ms;
+}
+.product-reviews-add:hover{
+    background: #ca6e49;
+}
+.delete-comment{
+    background: var(--white-gray);
+    padding: 12px 15px;
+    border-radius: 14px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    color: #000;
+    margin-top: 16px;
+    transition: all 250ms;
+}
+.delete-comment:hover{
+    background: #c6c6c6;
+}
+.button-controll-comment{
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
 }
