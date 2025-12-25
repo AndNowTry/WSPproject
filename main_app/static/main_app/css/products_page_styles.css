@@ -50,7 +50,7 @@
 }
 .product-container-left {
     width: 350px;
-    height: 600px;
+    height: max-content;
     padding: 20px;
     background: var(--white-gray);
     border-radius: 14px;
